@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fleschworks.food.domain.exception.EntidadeEmUsoException;
 import com.fleschworks.food.domain.exception.EntidadeNaoEncontradaException;
-import com.fleschworks.food.domain.model.Cidade;
 import com.fleschworks.food.domain.model.Estado;
 import com.fleschworks.food.domain.repository.EstadoRepository;
 import com.fleschworks.food.domain.service.CadastroEstadoService;
