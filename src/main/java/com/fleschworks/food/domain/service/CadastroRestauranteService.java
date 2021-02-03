@@ -1,5 +1,7 @@
 package com.fleschworks.food.domain.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -23,16 +25,22 @@ public class CadastroRestauranteService {
 
 	public Restaurante salvar(Restaurante restaurante) {
 		Long cozinhaId = restaurante.getCozinha().getId();
-		Cozinha cozinha = cozinhaRepository.porId(cozinhaId);
-
-		if (cozinha == null) {
-			throw new EntidadeNaoEncontradaException(
-					String.format("Não existe cadastro de cozinha com código %d", cozinhaId));
-		}
-
-		restaurante.setCozinha(cozinha);
-		return restauranteRepository.salvar(restaurante);
+		Cozinha cozinha = cozinhaRepository.findById(cozinhaId)
+				.orElseThrow(() -> new EntidadeNaoEncontradaException(
+						String.format("Não existe cadastro de cozinha com código %d", cozinhaId)));
+		
+				restaurante.setCozinha(cozinha);
+				return restauranteRepository.salvar(restaurante);
 	}
+	/*
+	 * Optional <Cozinha> cozinha = cozinhaRepository.findById(cozinhaId);
+	 * 
+	 * if (cozinha.isEmpty()) { throw new EntidadeNaoEncontradaException(
+	 * String.format("Não existe cadastro de cozinha com código %d", cozinhaId)); }
+	 * 
+	 * restaurante.setCozinha(cozinha.get()); return
+	 * restauranteRepository.salvar(restaurante); }
+	 */
 
 	public void excluir(Long restauranteId) {
 

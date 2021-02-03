@@ -1,5 +1,7 @@
 package com.fleschworks.food.jpa;
 
+import java.util.Optional;
+
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
@@ -17,8 +19,8 @@ public class BuscarCozinhaMain {
 		
 		CozinhaRepository cozinhaRepository = applicationContext.getBean(CozinhaRepository.class);
 		
-		Cozinha cozinha = cozinhaRepository.porId(2L);
-		System.out.printf("%d-%s\n", cozinha.getId(), cozinha.getNome());
+		Optional <Cozinha> cozinha = cozinhaRepository.findById(2L);
+		System.out.printf("%d-%s\n", cozinha.get().getId(), cozinha.get().getNome());
 			
 	}
 
