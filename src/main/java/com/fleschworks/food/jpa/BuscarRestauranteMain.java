@@ -1,5 +1,7 @@
 package com.fleschworks.food.jpa;
 
+import java.util.Optional;
+
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
@@ -17,7 +19,7 @@ public class BuscarRestauranteMain {
 		
 		RestauranteRepository restauranteRepository = applicationContext.getBean(RestauranteRepository.class);
 		
-		Restaurante restaurante = restauranteRepository.porId(2L);
-		System.out.printf("%d-%s\n", restaurante.getId(), restaurante.getNome());
+		Optional<Restaurante> restaurante = restauranteRepository.findById(2L);
+		System.out.printf("%d-%s\n", restaurante.get().getId(), restaurante.get().getNome());
 	}
 }

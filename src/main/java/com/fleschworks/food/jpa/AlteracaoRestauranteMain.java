@@ -23,6 +23,6 @@ public class AlteracaoRestauranteMain {
 		restaurante.setNome("Tay");
 		restaurante.setTaxaFrete(new BigDecimal(9));
 		
-		restauranteRepository.salvar(restaurante);
+		restauranteRepository.save(restaurante);
 	}
 }

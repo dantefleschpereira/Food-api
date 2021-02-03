@@ -30,7 +30,7 @@ public class CadastroRestauranteService {
 						String.format("Não existe cadastro de cozinha com código %d", cozinhaId)));
 		
 				restaurante.setCozinha(cozinha);
-				return restauranteRepository.salvar(restaurante);
+				return restauranteRepository.save(restaurante);
 	}
 	/*
 	 * Optional <Cozinha> cozinha = cozinhaRepository.findById(cozinhaId);
@@ -45,7 +45,7 @@ public class CadastroRestauranteService {
 	public void excluir(Long restauranteId) {
 
 		try {
-			restauranteRepository.remover(restauranteId);
+			restauranteRepository.deleteById(restauranteId);
 
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEncontradaException(
