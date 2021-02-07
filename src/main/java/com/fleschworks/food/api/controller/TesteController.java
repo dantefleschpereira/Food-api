@@ -13,6 +13,8 @@ import com.fleschworks.food.domain.model.Cozinha;
 import com.fleschworks.food.domain.model.Restaurante;
 import com.fleschworks.food.domain.repository.CozinhaRepository;
 import com.fleschworks.food.domain.repository.RestauranteRepository;
+import com.fleschworks.food.domain.repository.spec.RestauranteComFreteGratisSpec;
+import com.fleschworks.food.domain.repository.spec.RestauranteComNomeSemelhanteSpec;
 
 @RestController
 @RequestMapping("/teste")
@@ -28,7 +30,7 @@ public class TesteController {
 	public Optional<Cozinha> cozinhaPorNome(String nome) {
 		return cozinhaRepository.findByNome(nome);
 	}
-	
+
 	@GetMapping("/cozinhas/exists")
 	public boolean cozinhaExists(String nome) {
 		return cozinhaRepository.existsByNome(nome);
@@ -48,20 +50,29 @@ public class TesteController {
 	public Optional<Restaurante> restaurantePrimeiroPorNome(String nome) {
 		return restauranteRepository.findFirstRestauranteByNomeContaining(nome);
 	}
-	
+
 	@GetMapping("/restaurantes/top2-por-nome")
 	public List<Restaurante> restaurantesTop2PorNome(String nome) {
 		return restauranteRepository.findTop2ByNomeContaining(nome);
 	}
-	
+
 	@GetMapping("/restaurantes/por-nome-frete")
-	public List<Restaurante> restaurantesPorNomeFrete(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal){
+	public List<Restaurante> restaurantesPorNomeFrete(String nome, BigDecimal taxaFreteInicial,
+			BigDecimal taxaFreteFinal) {
 		return restauranteRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
 	}
-	
+
 	@GetMapping("/restaurantes/count-por-cozinha")
 	public int restaurantesCountPorCozinha(Long cozinhaId) {
 		return restauranteRepository.countByCozinhaId(cozinhaId);
 	}
-	
+
+	@GetMapping("/restaurantes/com-frete-gratis")
+	public List<Restaurante> restaurantesComFreteGratis(String nome) {
+		var comFreteGratis = new RestauranteComFreteGratisSpec();
+		var comNomeSemelhante = new RestauranteComNomeSemelhanteSpec(nome);
+
+		return restauranteRepository.findAll(comFreteGratis.and(comNomeSemelhante));
+	}
+
 }
