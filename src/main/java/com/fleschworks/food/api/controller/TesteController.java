@@ -13,8 +13,7 @@ import com.fleschworks.food.domain.model.Cozinha;
 import com.fleschworks.food.domain.model.Restaurante;
 import com.fleschworks.food.domain.repository.CozinhaRepository;
 import com.fleschworks.food.domain.repository.RestauranteRepository;
-import com.fleschworks.food.domain.repository.spec.RestauranteComFreteGratisSpec;
-import com.fleschworks.food.domain.repository.spec.RestauranteComNomeSemelhanteSpec;
+import com.fleschworks.food.domain.repository.spec.RestauranteSpecs;
 
 @RestController
 @RequestMapping("/teste")
@@ -69,10 +68,8 @@ public class TesteController {
 
 	@GetMapping("/restaurantes/com-frete-gratis")
 	public List<Restaurante> restaurantesComFreteGratis(String nome) {
-		var comFreteGratis = new RestauranteComFreteGratisSpec();
-		var comNomeSemelhante = new RestauranteComNomeSemelhanteSpec(nome);
-
-		return restauranteRepository.findAll(comFreteGratis.and(comNomeSemelhante));
+		
+		return restauranteRepository.findAll(RestauranteSpecs.comFreteGratis().and(RestauranteSpecs.comNomeSemelhante(nome)));
 	}
 
 }
