@@ -13,7 +13,6 @@ import com.fleschworks.food.domain.model.Cozinha;
 import com.fleschworks.food.domain.model.Restaurante;
 import com.fleschworks.food.domain.repository.CozinhaRepository;
 import com.fleschworks.food.domain.repository.RestauranteRepository;
-import com.fleschworks.food.domain.repository.spec.RestauranteSpecs;
 
 @RestController
 @RequestMapping("/teste")
