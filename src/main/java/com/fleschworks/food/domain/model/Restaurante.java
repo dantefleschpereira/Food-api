@@ -57,16 +57,16 @@ public class Restaurante {
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 
-	//@JsonIgnoreProperties("hibernateLazyInitializer")
-	@JoinColumn(name = "cozinha_id", nullable = false) // criar a tabela no banco de dados
-	@ManyToOne //(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToOne // (fetch = FetchType.LAZY)
+	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
 
-	@JsonIgnore // dessa forma nao vai apresentar formas de pagamento na representação de Restaurante - postman - consulta mais rápida.
+	//@JsonIgnore // dessa forma nao vai apresentar formas de pagamento na representação de Restaurante - postman - consulta mais rápida.
 	@ManyToMany
 	@JoinTable(name = "restaurante_forma_pagamento", joinColumns = @JoinColumn(name = "restaurante_id"), inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
 	private List<FormaPagamento> formasPagamento = new ArrayList<>();
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "restaurante")
 	private List<Produto> produtos = new ArrayList<>();
